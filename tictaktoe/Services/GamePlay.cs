@@ -36,7 +36,7 @@ namespace tictaktoe.Services
             var SecondPlayerId = GlobalData.PlayerGame.LastOrDefault(x=> x.Value == gameId).Key;
             if( game.CurrentPlayer != !(SecondPlayerId == input.Id))
             {
-
+                throw new ArgumentException();
             }
             if (game.BoardAsset[input.TurnCell] == 0)
             {
