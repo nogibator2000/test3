@@ -111,7 +111,9 @@ namespace tictaktoe.Controllers
                 try
                 {
                     var gameModel = Serializer.Deserialize<GameModel>(fileStream);
-                    return Ok(GamePlay.GetGame(gameModel));
+                    var outStr = new FileStream("out.proto", FileMode.CreateNew);
+                    Serializer.Serialize<BoardModel>(outStr, GamePlay.GetGame(gameModel));
+                    return Ok(outStr);
                 }
                 catch (Exception ex)
                 {

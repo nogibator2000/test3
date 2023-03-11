@@ -8,14 +8,14 @@ namespace tictaktoe.Services
         public static int Queue()
         {
             var playerID = GlobalData.Queue.LastOrDefault() + 1;
-            GlobalData.Queue.Add(playerID);
-            if (GlobalData.Queue.Count > 2)
+            GlobalData.Queue.Enqueue(playerID);
+            if (GlobalData.Queue.Count >= 2)
             {
                 var gameId = GlobalData.Games.LastOrDefault().Key + 1;
                 GlobalData.PlayerGame.Add(playerID, gameId);
-                GlobalData.Queue.RemoveAt(0);
+                GlobalData.Queue.Dequeue();
                 GlobalData.PlayerGame.Add(GlobalData.Queue.FirstOrDefault(), gameId);
-                GlobalData.Queue.RemoveAt(0);
+                GlobalData.Queue.Dequeue();
                 GlobalData.Games.Add(gameId, new BoardModel { BoardAsset = new int[9], TurnNumber = 0, WinningCombination = 0 });
             }
             return playerID;
